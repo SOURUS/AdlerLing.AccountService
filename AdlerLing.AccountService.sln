@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdlerLing.AccountService.WebApi", "..\AdlerLing.AccountService\AdlerLing.AccountService.WebApi\AdlerLing.AccountService.WebApi.csproj", "{8989A999-17B7-452B-93E2-C87E72711B17}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdlerLing.AccountService.DB", "..\AdlerLing.AccountService\AdlerLing.AccountService.DB\AdlerLing.AccountService.DB.csproj", "{45C70D97-565A-49EC-A5FD-CCCFE452234F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8989A999-17B7-452B-93E2-C87E72711B17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8989A999-17B7-452B-93E2-C87E72711B17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8989A999-17B7-452B-93E2-C87E72711B17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45C70D97-565A-49EC-A5FD-CCCFE452234F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45C70D97-565A-49EC-A5FD-CCCFE452234F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45C70D97-565A-49EC-A5FD-CCCFE452234F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45C70D97-565A-49EC-A5FD-CCCFE452234F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
