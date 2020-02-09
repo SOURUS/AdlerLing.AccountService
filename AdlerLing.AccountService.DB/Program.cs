@@ -12,6 +12,7 @@ namespace AdlerLing.AccountService.DB
 
         static void Main(string[] args)
         {
+            //TODO: get connection string from Core proj
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appSettings.json", optional: true);
