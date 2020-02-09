@@ -1,8 +1,8 @@
 ﻿using AdlerLing.AccountService.DB.Enitites;
 using AdlerLing.AccountService.Infrustructure.Interfaces;
+using Npgsql;
 using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Threading.Tasks;
 
 namespace AdlerLing.AccountService.Infrustructure.Implementations
@@ -13,7 +13,7 @@ namespace AdlerLing.AccountService.Infrustructure.Implementations
 
         public UserRepository(string connectionString)
         {
-            db = new SqlConnection(connectionString);
+            db = new NpgsqlConnection(connectionString);
         }
 
         public void Create(User user)
