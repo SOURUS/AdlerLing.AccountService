@@ -5,10 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.30" />
     <PackageReference Include="Npgsql" Version="4.1.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AdlerLing.AccountService.Core\AdlerLing.AccountService.Core.csproj" />
     <ProjectReference Include="..\AdlerLing.AccountService.DB\AdlerLing.AccountService.DB.csproj" />
   </ItemGroup>
 

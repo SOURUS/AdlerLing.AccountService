@@ -1,24 +1,33 @@
-﻿using AdlerLing.AccountService.DB.Enitites;
+﻿using AdlerLing.AccountService.Core.DTO;
+using AdlerLing.AccountService.DB.Enitites;
 using AdlerLing.AccountService.Infrustructure.Interfaces;
-using Npgsql;
 using System;
-using System.Data;
+using Dapper;
 using System.Threading.Tasks;
+using Npgsql;
 
 namespace AdlerLing.AccountService.Infrustructure.Implementations
 {
     public class UserRepository : IUserRepository
     {
-        private IDbConnection db;
+        private readonly string DatabaseConnString;
 
         public UserRepository(string connectionString)
         {
-            db = new NpgsqlConnection(connectionString);
+            DatabaseConnString = connectionString;
         }
 
-        public void Create(User user)
+        public void Create(CreateUserDTO user)
         {
-            throw new NotImplementedException();
+            const string sql = "INSERT INTO dbo.users (email, password) VALUES (@Email, @Password);";
+            using (var connection = new NpgsqlConnection(DatabaseConnString))
+            {
+                var result = connection.Execute(sql, new
+                {
+                    user.Email,
+                    user.Password
+                });
+            }
         }
 
         public Task<User> FindById(Guid id)
@@ -34,11 +43,6 @@ namespace AdlerLing.AccountService.Infrustructure.Implementations
         public User Update(User user)
         {
             throw new NotImplementedException();
-        }
-
-        public string Check()
-        {
-            return db.ConnectionString;
         }
     }
 }

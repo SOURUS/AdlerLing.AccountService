@@ -1,4 +1,6 @@
-﻿using FluentMigrator;
+﻿using AdlerLing.AccountService.Core.Settings;
+using FluentMigrator;
+using Microsoft.Extensions.Options;
 using System;
 
 namespace AdlerLing.AccountService.DB.Migrations
@@ -6,17 +8,23 @@ namespace AdlerLing.AccountService.DB.Migrations
     [Migration(3)]
     public class CreateRolesTable : Migration
     {
+        public readonly string CustomSchema;
+
+        public CreateRolesTable(IOptions<DBSettings> _schema)
+        {
+            CustomSchema = _schema.Value.Schema;
+        }
         public override void Up()
         {
-            Create.Table("Roles")
-                .WithColumn("RoleId").AsInt32().PrimaryKey().Identity()
-                .WithColumn("Name").AsString(100).Unique().NotNullable()
-                .WithColumn("CreationDate").AsDateTime().WithDefaultValue(DateTime.UtcNow).NotNullable();
+            Create.Table("roles").InSchema(CustomSchema)
+                .WithColumn("role_id").AsInt32().PrimaryKey().Identity()
+                .WithColumn("name").AsString(100).Unique().NotNullable()
+                .WithColumn("creation_date").AsDateTime().WithDefaultValue(DateTime.UtcNow).NotNullable();
         }
 
         public override void Down()
         {
-            Delete.Table("Roles");
+            Delete.Table("roles");
         }
     }
 }

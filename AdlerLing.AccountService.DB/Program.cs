@@ -3,24 +3,27 @@ using Microsoft.Extensions.DependencyInjection;
 using FluentMigrator.Runner;
 using System;
 using System.IO;
+using FluentMigrator.Runner.VersionTableInfo;
+using AdlerLing.AccountService.DB.Migrations.Configs;
+using AdlerLing.AccountService.Core.Settings;
+using Microsoft.Extensions.Configuration.Binder;
 
 namespace AdlerLing.AccountService.DB
 {
     class Program
     {
-        public static IConfigurationRoot Configuration;
+        public static IConfiguration Configuration;
 
         static void Main(string[] args)
         {
-            //TODO: get connection string from Core proj
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appSettings.json", optional: true);
 
             Configuration = builder.Build();
 
-            var serviceProvider = CreateServices(Configuration.GetConnectionString("DefaultConnection"));
-
+            //TODO: get connection string from Core proj
+            var serviceProvider = CreateServices(Configuration["DataBaseInfo:DefaultConnection"]);
             using var scope = serviceProvider.CreateScope();
 
             UpdateDatabase(scope.ServiceProvider);
@@ -30,6 +33,8 @@ namespace AdlerLing.AccountService.DB
         {
             return new ServiceCollection()
                 .AddFluentMigratorCore()
+                .Configure<DBSettings>(option => Configuration.GetSection("DataBaseInfo").Bind(option))
+                .AddScoped(typeof(IVersionTableMetaData), typeof(MySchemaName))
                 .ConfigureRunner(rb => rb
                     .AddPostgres()
                     .WithGlobalConnectionString(connectionString)
