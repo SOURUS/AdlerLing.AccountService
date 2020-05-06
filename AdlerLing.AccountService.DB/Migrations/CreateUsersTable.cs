@@ -19,9 +19,9 @@ namespace AdlerLing.AccountService.DB.Migrations
         {
             Create.Table("users").InSchema(CustomSchema)
                 .WithColumn("user_id").AsGuid().PrimaryKey()
-                .WithColumn("email").AsString(255).Indexed().NotNullable()
+                .WithColumn("email").AsString(255).NotNullable().Unique()
                 .WithColumn("password").AsString(255).NotNullable()
-                .WithColumn("creation_date").AsDateTime().WithDefaultValue(DateTime.UtcNow).NotNullable()
+                .WithColumn("creation_date").AsDateTime().WithDefaultValue(SystemMethods.CurrentUTCDateTime).NotNullable()
                 .WithColumn("is_activated").AsBoolean().WithDefaultValue(false).NotNullable();
 
             Execute.Sql($"ALTER Table \"{CustomSchema}\".users ALTER COLUMN user_id SET DEFAULT \"{CustomSchema}\".uuid_generate_v4();");

@@ -1,7 +1,9 @@
 ﻿using AdlerLing.AccountService.Core.DTO;
 using AdlerLing.AccountService.DB.Enitites;
 using AdlerLing.AccountService.Infrustructure.Interfaces;
+using AdlerLing.AccountService.Core.ObjectValue;
 using System;
+using System.Data;
 using Dapper;
 using System.Threading.Tasks;
 using Npgsql;
@@ -17,17 +19,22 @@ namespace AdlerLing.AccountService.Infrustructure.Implementations
             DatabaseConnString = connectionString;
         }
 
-        public void Create(CreateUserDTO user)
+        public async Task<bool> Create(CreateUserDTO user)
         {
-            const string sql = "INSERT INTO dbo.users (email, password) VALUES (@Email, @Password);";
             using (var connection = new NpgsqlConnection(DatabaseConnString))
             {
-                var result = connection.Execute(sql, new
+                connection.Open();
+                using (var cmd = new NpgsqlCommand("call dbo.sp_insert_user(@email, @password)", connection))
                 {
-                    user.Email,
-                    user.Password
-                });
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("@email", user.Email);
+                    cmd.Parameters.AddWithValue("@password", user.Password);
+
+                    await cmd.ExecuteReaderAsync();
+                }
             }
+
+            return true;
         }
 
         public Task<User> FindById(Guid id)

@@ -19,7 +19,7 @@ namespace AdlerLing.AccountService.DB.Migrations
             Create.Table("roles").InSchema(CustomSchema)
                 .WithColumn("role_id").AsInt32().PrimaryKey().Identity()
                 .WithColumn("name").AsString(100).Unique().NotNullable()
-                .WithColumn("creation_date").AsDateTime().WithDefaultValue(DateTime.UtcNow).NotNullable();
+                .WithColumn("creation_date").AsDateTime().WithDefaultValue(SystemMethods.CurrentUTCDateTime).NotNullable();
         }
 
         public override void Down()

@@ -1,7 +1,5 @@
-﻿using AdlerLing.AccountService.Core.Settings;
-using AdlerLing.AccountService.Infrustructure.Interfaces;
+﻿using AdlerLing.AccountService.Infrustructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
 namespace AdlerLing.AccountService.WebApi.Controllers
 {
@@ -16,9 +14,10 @@ namespace AdlerLing.AccountService.WebApi.Controllers
             userRepository = _userRepository;
         }
 
-        public string Index()
+        [HttpGet]
+        public string Index(string email)
         {
-            userRepository.Create(new Core.DTO.CreateUserDTO { Email= "sour47@yandex.ru", Password = "12345" });
+            userRepository.Create(new Core.DTO.CreateUserDTO { Email= email, Password = "12345" });
             return null;
         }
     }

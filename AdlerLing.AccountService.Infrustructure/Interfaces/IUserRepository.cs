@@ -8,7 +8,7 @@ namespace AdlerLing.AccountService.Infrustructure.Interfaces
     public interface IUserRepository
     {
         Task<User> FindById(Guid id);
-        void Create(CreateUserDTO user);
+        Task<bool> Create(CreateUserDTO user); //TODO: create response object for internal operations
         User Update(User user);
         void Remove(Guid id);
     }
