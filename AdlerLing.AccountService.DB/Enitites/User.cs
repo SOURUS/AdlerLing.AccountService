@@ -10,6 +10,6 @@ namespace AdlerLing.AccountService.DB.Enitites
         public string Password { get; set; }
         public DateTime CreationDate { get; set; }
         public bool IsActivated { get; set; }
-        public List<Role> Roles { get; } = new List<Role>();
+        public List<Role> Roles { get; set; }
     }
 }

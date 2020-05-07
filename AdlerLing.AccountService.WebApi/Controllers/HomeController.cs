@@ -1,5 +1,6 @@
-﻿using AdlerLing.AccountService.Infrustructure.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using AdlerLing.AccountService.Infrustructure.Service.Interfaces;
+using System.Threading.Tasks;
 
 namespace AdlerLing.AccountService.WebApi.Controllers
 {
@@ -7,17 +8,17 @@ namespace AdlerLing.AccountService.WebApi.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
-        private readonly IUserRepository userRepository;
+        private readonly IUserService _userService;
 
-        public HomeController(IUserRepository _userRepository)
+        public HomeController(IUserService userService)
         {
-            userRepository = _userRepository;
+            _userService = userService;
         }
 
         [HttpGet]
-        public string Index(string email)
+        public async Task<string> IndexAsync(string email)
         {
-            userRepository.Create(new Core.DTO.CreateUserDTO { Email= email, Password = "12345" });
+            await _userService.CreateUser(new Core.DTO.CreateUserDTO { Email = email, Password = "12345" });
             return null;
         }
     }

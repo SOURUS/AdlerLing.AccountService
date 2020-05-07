@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdlerLing.AccountService.WebApi", "..\AdlerLing.AccountService\AdlerLing.AccountService.WebApi\AdlerLing.AccountService.WebApi.csproj", "{8989A999-17B7-452B-93E2-C87E72711B17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdlerLing.AccountService.WebApi", "AdlerLing.AccountService.WebApi\AdlerLing.AccountService.WebApi.csproj", "{8989A999-17B7-452B-93E2-C87E72711B17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdlerLing.AccountService.DB", "..\AdlerLing.AccountService\AdlerLing.AccountService.DB\AdlerLing.AccountService.DB.csproj", "{45C70D97-565A-49EC-A5FD-CCCFE452234F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdlerLing.AccountService.DB", "AdlerLing.AccountService.DB\AdlerLing.AccountService.DB.csproj", "{45C70D97-565A-49EC-A5FD-CCCFE452234F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdlerLing.AccountService.Infrustructure", "..\AdlerLing.AccountService\AdlerLing.AccountService.Infrustructure\AdlerLing.AccountService.Infrustructure.csproj", "{79B2C163-91CF-4F4D-9C15-E5B79B254C6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdlerLing.AccountService.Infrustructure", "AdlerLing.AccountService.Infrustructure\AdlerLing.AccountService.Infrustructure.csproj", "{79B2C163-91CF-4F4D-9C15-E5B79B254C6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdlerLing.AccountService.Core", "..\AdlerLing.AccountService\AdlerLing.AccountService.Core\AdlerLing.AccountService.Core.csproj", "{AC6AC73D-05DD-489C-8A52-8CF6925972BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdlerLing.AccountService.Core", "AdlerLing.AccountService.Core\AdlerLing.AccountService.Core.csproj", "{AC6AC73D-05DD-489C-8A52-8CF6925972BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -29,7 +29,6 @@ namespace AdlerLing.AccountService.DB.Migrations
                     )
                     insert into dbo.user_info (user_id)
                     values ((select * from new_user));
-                COMMIT;
                 END;
                 $$; ");
         }
