@@ -35,7 +35,7 @@ namespace AdlerLing.AccountService.DB.Migrations
 
         public override void Down()
         {
-            Execute.Sql("DROP IF EXISTS sp_insert_user");
+            Execute.Sql($"DROP PROCEDURE IF EXISTS {CustomSchema}.{StoredProcedureVault.sp_insert_user};");
         }
     }
 }

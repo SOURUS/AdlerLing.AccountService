@@ -2,6 +2,8 @@
 using AdlerLing.AccountService.Infrustructure.DAL.Interfaces;
 using AdlerLing.AccountService.Infrustructure.Service.Interfaces;
 using System.Threading.Tasks;
+using AdlerLing.AccountService.Core.Transfering;
+using AdlerLing.AccountService.Core.Enums;
 using System;
 
 namespace AdlerLing.AccountService.Infrustructure.Service.Implementation
@@ -14,18 +16,26 @@ namespace AdlerLing.AccountService.Infrustructure.Service.Implementation
             _userDAL = userDAL;
         }
 
-        public async Task<bool> CreateUser(CreateUserDTO user)
+        public async Task<Result> CreateUser(CreateUserDTO user)
         {
-            if (await _userDAL.CheckUserExists(user.Email))
+            try
             {
-                throw new Exception($"User with Email -> {user.Email} already exists");
+                if (await _userDAL.CheckUserExists(user.Email) != 0)
+                {
+                    return Result.CreateFailure(ErrorCodeEnum.UserWithEmailExists);
+                }
+
+                await _userDAL.CreateUserAsync(user);
+                
+                await _userDAL.CommitAsync();
+
+                return Result.CreateSuccess();
             }
 
-            await _userDAL.CreateUserAsync(user);
-
-            await _userDAL.CommitAsync();
-
-            return true;
+            catch (Exception ex)
+            {
+                return Result.CreateFailure(ex);
+            }
         }
     }
 }

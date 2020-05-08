@@ -6,7 +6,6 @@ using System.IO;
 using FluentMigrator.Runner.VersionTableInfo;
 using AdlerLing.AccountService.DB.Migrations.Configs;
 using AdlerLing.AccountService.Core.Settings;
-using Microsoft.Extensions.Configuration.Binder;
 
 namespace AdlerLing.AccountService.DB
 {

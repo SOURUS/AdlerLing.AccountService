@@ -1,8 +1,11 @@
 ﻿using AdlerLing.AccountService.Core.DTO;
+using AdlerLing.AccountService.Core.Enums;
+using AdlerLing.AccountService.Core.Transfering;
 using AdlerLing.AccountService.Infrustructure.DAL.Interfaces;
 using AdlerLing.AccountService.Infrustructure.UOF;
 using Dapper;
 using Npgsql;
+using System;
 using System.Data;
 using System.Threading.Tasks;
 
@@ -24,20 +27,18 @@ namespace AdlerLing.AccountService.Infrustructure.DAL.Implementations
             _uow = new UnitOfWork(connection);
         }
 
-        public async Task<bool> CheckUserExists(string email)
+        public async Task<int> CheckUserExists(string email)
         {
             try
             {
-                return await _uow.Connection.ExecuteScalarAsync<bool>("select count(1) from dbo.users where email=@email",
+                return await _uow.Connection.ExecuteScalarAsync<int>("select count(1) from dbo.users where email=@email",
                     new { email },
                     commandType: CommandType.Text, transaction: _uow.Transaction);
             }
-            catch
+            catch(Exception ex)
             {
-
+                throw ex;
             }
-
-            return false;
         }
 
         public async Task<bool> CreateUserAsync(CreateUserDTO user)
@@ -52,12 +53,10 @@ namespace AdlerLing.AccountService.Infrustructure.DAL.Implementations
 
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
-
+                throw ex;
             }
-
-            return false;
         }
 
         public Task<int> CommitAsync()
