@@ -18,8 +18,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Globalization;
-using System.Reflection;
-using System.Resources;
 
 namespace AdlerLing.AccountService.WebApi
 {
@@ -57,12 +55,14 @@ namespace AdlerLing.AccountService.WebApi
             services.Configure<DBSettings>(
                 Configuration.GetSection("ConnectionStrings"));
 
-            //services.AddSingleton(new ResourceManager("AdlerLing.AccountService.WebApi.Resources", typeof(Startup).GetTypeInfo().Assembly));
 
+            services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<IUserDAL>(x =>
                 ActivatorUtilities.CreateInstance<UserDAL>(x, Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IRoleDAL>(x =>
+                ActivatorUtilities.CreateInstance<RoleDAL>(x, Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<SharedErrorResource>();
 

@@ -118,10 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Exception_Error" xml:space="preserve">
-    <value>Ooops, something very bad happened</value>
+    <value>Ooops, something very bad happened.</value>
+  </data>
+  <data name="RoleNameAlreadyExists" xml:space="preserve">
+    <value>Role with this name already exists.</value>
   </data>
   <data name="UserModel_MinLengthPassword" xml:space="preserve">
-    <value>The Password length should be not less then 6 characters</value>
+    <value>The Password length should be not less then 6 characters.</value>
   </data>
   <data name="UserModel_NotRightFormatEmail" xml:space="preserve">
     <value>Not right email format!</value>

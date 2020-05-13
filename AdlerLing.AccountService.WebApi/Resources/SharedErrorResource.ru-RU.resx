@@ -120,13 +120,16 @@
   <data name="Exception_Error" xml:space="preserve">
     <value>Упс, случилось что-то серьезное.</value>
   </data>
+  <data name="RoleNameAlreadyExists" xml:space="preserve">
+    <value>Роль с таким именем уже существует.</value>
+  </data>
   <data name="UserModel_MinLengthPassword" xml:space="preserve">
-    <value>Длина пароля должна быть не меньше 6 символов</value>
+    <value>Длина пароля должна быть не меньше 6 символов.</value>
   </data>
   <data name="UserModel_NotRightFormatEmail" xml:space="preserve">
     <value>Неверный Email формат!</value>
   </data>
   <data name="UserWithEmailExists" xml:space="preserve">
-    <value>Пользователь с таким email {0}, уже зарегистрирован.</value>
+    <value>Пользователь с таким email уже зарегистрирован.</value>
   </data>
 </root>

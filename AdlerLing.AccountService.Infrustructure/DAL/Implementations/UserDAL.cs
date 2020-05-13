@@ -1,31 +1,15 @@
 ﻿using AdlerLing.AccountService.Core.DTO;
-using AdlerLing.AccountService.Core.Enums;
-using AdlerLing.AccountService.Core.Transfering;
 using AdlerLing.AccountService.Infrustructure.DAL.Interfaces;
-using AdlerLing.AccountService.Infrustructure.UOF;
 using Dapper;
-using Npgsql;
 using System;
 using System.Data;
 using System.Threading.Tasks;
 
 namespace AdlerLing.AccountService.Infrustructure.DAL.Implementations
 {
-    public class UserDAL : IUserDAL
+    public class UserDAL : BaseDAL, IUserDAL
     {
-        private readonly string _databaseConnString;
-        internal readonly IUnitOfWork _uow;
-
-        private int _executeCounter;
-
-        public UserDAL(string connectionString)
-        {
-            _databaseConnString = connectionString;
-
-            var connection = new NpgsqlConnection(_databaseConnString);
-            connection.Open();
-            _uow = new UnitOfWork(connection);
-        }
+        public UserDAL(string connectionString) : base(connectionString) { }
 
         public async Task<int> CheckUserExists(string email)
         {
@@ -56,36 +40,6 @@ namespace AdlerLing.AccountService.Infrustructure.DAL.Implementations
             catch (Exception ex)
             {
                 throw ex;
-            }
-        }
-
-        public Task<int> CommitAsync()
-        {
-            try
-            {
-                var count = _executeCounter;
-                _executeCounter = 0;
-                _uow.Commit();
-                return Task.FromResult(count);
-            }
-            catch
-            {
-                //TODO: ADD LOGGER
-            }
-
-            return Task.FromResult(0);
-        }
-
-        public void Rollback()
-        {
-            _uow.Rollback();
-        }
-
-        public void Dispose()
-        {
-            if (_uow != null)
-            {
-                _uow.Dispose();
             }
         }
     }

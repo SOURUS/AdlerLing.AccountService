@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace AdlerLing.AccountService.Infrustructure.DAL.Interfaces
 {
-    public interface IUserDAL : IDAL, IDisposable
+    public interface IRoleDAL : IDAL, IDisposable
     {
-        Task<bool> CreateUserAsync(CreateUserDTO user);
-        Task<int> CheckUserExists(string email);
+        Task<bool> CreateRoleAsync(CreateRoleDTO user);
+        Task<int> CheckRoleExists(string email);
     }
 }
