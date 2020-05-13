@@ -2,6 +2,9 @@
 using AdlerLing.AccountService.Infrustructure.Service.Interfaces;
 using System.Threading.Tasks;
 using AdlerLing.AccountService.Core.Enums;
+using AdlerLing.AccountService.WebApi.Infra;
+using AdlerLing.AccountService.Core.Transfering;
+using AdlerLing.AccountService.WebApi.Model.Request;
 
 namespace AdlerLing.AccountService.WebApi.Controllers
 {
@@ -16,17 +19,18 @@ namespace AdlerLing.AccountService.WebApi.Controllers
             _userService = userService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> CreateUser(string email)
+        [HttpPost]
+        [Route("CreateUser")]
+        public async Task<Result> CreateUser([FromBody]UserModel user)
         {
-            var res = await _userService.CreateUser(new Core.DTO.CreateUserDTO { Email = email, Password = "12345" });
+            var res = await _userService.CreateUser(new Core.DTO.CreateUserDTO { Email = user.Email, Password = user.Password });
 
             if (res.Status == ResultStatusEnum.Failure)
             {
-
+                return res;
             }
 
-            return null;
+            return res;
         }
     }
 }
