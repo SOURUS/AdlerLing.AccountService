@@ -16,8 +16,8 @@ namespace AdlerLing.AccountService.WebApi.Model.Request
     {
         public UserModelValidator(IStringLocalizer<SharedErrorResource> localizer)
         {
-            RuleFor(x => x.Email).EmailAddress().WithMessage(localizer["UserModel_NotRightFormatEmail"]); ;
-            RuleFor(x => x.Password).MinimumLength(6);
+            //RuleFor(x => x.Email).EmailAddress().WithMessage(localizer["UserModel_NotRightFormatEmail"]); ;
+            RuleFor(x => x.Password).MinimumLength(6).WithMessage(localizer["UserModel_MinLengthPassword"]);
         }
     }
 }

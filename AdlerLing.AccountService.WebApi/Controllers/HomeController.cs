@@ -3,8 +3,9 @@ using AdlerLing.AccountService.Infrustructure.Service.Interfaces;
 using System.Threading.Tasks;
 using AdlerLing.AccountService.Core.Enums;
 using AdlerLing.AccountService.WebApi.Infra;
-using AdlerLing.AccountService.Core.Transfering;
 using AdlerLing.AccountService.WebApi.Model.Request;
+using AdlerLing.AccountService.Core.DTO;
+using Microsoft.Extensions.Localization;
 
 namespace AdlerLing.AccountService.WebApi.Controllers
 {
@@ -14,23 +15,24 @@ namespace AdlerLing.AccountService.WebApi.Controllers
     {
         private readonly IUserService _userService;
 
-        public HomeController(IUserService userService)
+        public HomeController(IUserService userService, 
+            IStringLocalizer<SharedErrorResource> localizer) : base(localizer)
         {
             _userService = userService;
         }
 
         [HttpPost]
         [Route("CreateUser")]
-        public async Task<Result> CreateUser([FromBody]UserModel user)
+        public async Task<ApiResponse> CreateUser([FromBody]UserModel user)
         {
-            var res = await _userService.CreateUser(new Core.DTO.CreateUserDTO { Email = user.Email, Password = user.Password });
+            var res = await _userService.CreateUser(new CreateUserDTO { Email = user.Email, Password = user.Password });
 
             if (res.Status == ResultStatusEnum.Failure)
             {
-                return res;
+                return CreateFailedResponse(res);
             }
 
-            return res;
+            return CreateSuccessResponse(res);
         }
     }
 }

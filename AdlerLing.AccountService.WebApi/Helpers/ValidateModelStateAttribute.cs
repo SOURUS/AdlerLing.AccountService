@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Linq;
+using System.Net;
 
 namespace AdlerLing.AccountService.WebApi.Helpers
 {
@@ -18,13 +19,13 @@ namespace AdlerLing.AccountService.WebApi.Helpers
 
                 var responseObj = new ApiResponse
                 {
-                    StatusCode = 400,
+                    StatusCode = (int)HttpStatusCode.BadRequest,
                     ErrorMessages = errors
                 };
 
                 context.Result = new JsonResult(responseObj)
                 {
-                    StatusCode = 400
+                    StatusCode = (int)HttpStatusCode.BadRequest
                 };
             }
         }

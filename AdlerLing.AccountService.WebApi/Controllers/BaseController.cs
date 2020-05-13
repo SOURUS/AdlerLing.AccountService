@@ -1,19 +1,43 @@
-﻿using AdlerLing.AccountService.WebApi.Infra;
+﻿using AdlerLing.AccountService.Core.Transfering;
+using AdlerLing.AccountService.WebApi.Infra;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
+using System.Net;
 
 namespace AdlerLing.AccountService.WebApi.Controllers
 {
     public class BaseController : ControllerBase
     {
-        public BaseController()
+        public readonly IStringLocalizer<SharedErrorResource> _localizer;
+        public BaseController(IStringLocalizer<SharedErrorResource> localizer)
         {
-
+            _localizer = localizer;
         }
 
-        public ApiResponse CreateSuccessResponse(ApiResponse f)
+        public ApiResponse CreateSuccessResponse(Result serviceResult)
         {
-            return f;
+            return ApiResponse.CreateSuccess(HttpStatusCode.OK, serviceResult);
+        }
+
+        public ApiResponse CreateFailedResponse(Result serviceResult)
+        {
+            List<string> errorMessages = new List<string>();
+
+            if (serviceResult.ErrorMessages.Count > 0)
+            {
+                foreach (var r in serviceResult.ErrorMessages)
+                {
+                    errorMessages.Add(_localizer[r.ToString()]);
+                }
+            }
+
+            if (serviceResult.Exception != null)
+            {
+                errorMessages.Add(_localizer["Exception_Error"]);
+            }
+
+            return ApiResponse.CreateFailure(HttpStatusCode.BadRequest, errorMessages);
         }
     }
 }

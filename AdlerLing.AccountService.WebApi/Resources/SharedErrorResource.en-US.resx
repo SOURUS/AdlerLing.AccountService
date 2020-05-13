@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Exception_Error" xml:space="preserve">
+    <value>Ooops, something very bad happened</value>
+  </data>
+  <data name="UserModel_MinLengthPassword" xml:space="preserve">
+    <value>The Password length should be not less then 6 characters</value>
+  </data>
   <data name="UserModel_NotRightFormatEmail" xml:space="preserve">
     <value>Not right email format!</value>
   </data>
   <data name="UserWithEmailExists" xml:space="preserve">
-    <value>User with this email - {0}, already exists.</value>
+    <value>User with this email already exists.</value>
   </data>
 </root>
