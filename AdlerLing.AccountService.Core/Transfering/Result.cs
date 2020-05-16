@@ -19,11 +19,19 @@ namespace AdlerLing.AccountService.Core.Transfering
         public IList<ErrorCodeEnum> ErrorMessages { get; set; }
         public Exception Exception { get; set; }
         public ResultStatusEnum Status { get; set; }
-        public object Value { get; set; }
 
         public static Result CreateFailure(ErrorCodeEnum errorCode, Exception exception = null)
         {
             return new Result(new List<ErrorCodeEnum>() { errorCode })
+            {
+                Status = ResultStatusEnum.Failure,
+                Exception = exception
+            };
+        }
+
+        public static Result<T> CreateFailure<T>(ErrorCodeEnum errorCode, Exception exception = null)
+        {
+            return new Result<T>(new List<ErrorCodeEnum>() { errorCode })
             {
                 Status = ResultStatusEnum.Failure,
                 Exception = exception
@@ -43,9 +51,27 @@ namespace AdlerLing.AccountService.Core.Transfering
             return new Result { Status = ResultStatusEnum.Failure, Exception = exception };
         }
 
+        public static Result<T> CreateFailure<T>(Exception exception = null, IList<ErrorCodeEnum> errorMessages = null)
+        {
+            if (errorMessages != null)
+            {
+                return new Result<T>(errorMessages)
+                {
+                    Status = ResultStatusEnum.Failure
+                };
+            }
+
+            return new Result<T> { Status = ResultStatusEnum.Failure, Exception = exception };
+        }
+
         public static Result CreateSuccess(object value = null)
         {
-            return new Result { Status = ResultStatusEnum.Success, Value = value };
+            return new Result { Status = ResultStatusEnum.Success};
+        }
+
+        public static Result<T> CreateSuccess<T>(T data)
+        {
+            return new Result<T> { Status = ResultStatusEnum.Success, Data = data };
         }
     }
 }

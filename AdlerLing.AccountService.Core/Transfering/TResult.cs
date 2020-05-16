@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AdlerLing.AccountService.Core.Transfering
 {
-    public class Result<T>: Result
+    public sealed class Result<T>: Result
     {
         public Result() { }
 

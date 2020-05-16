@@ -1,15 +1,17 @@
-﻿using AdlerLing.AccountService.WebApi.Helpers;
-using FluentValidation;
+﻿using FluentValidation;
 using Microsoft.Extensions.Localization;
+using System;
 using System.Collections.Generic;
 
 namespace AdlerLing.AccountService.WebApi.Model.Request
 {
     public class UserModel
     {
+        public Guid? Id { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public List<RoleModel> Roles { get; set; } 
+        public UserInfoModel UserInfo { get; set; }
     }
 
     public class UserModelValidator : AbstractValidator<UserModel>

@@ -16,7 +16,7 @@ namespace AdlerLing.AccountService.Infrustructure.Service.Implementation
             _roleDAL = roleDAL;
         }
 
-        public async Task<Result> CreateRole(CreateRoleDTO role)
+        public async Task<Result> CreateRole(RoleDTO role)
         {
             try
             {

@@ -6,7 +6,7 @@ namespace AdlerLing.AccountService.Infrustructure.DAL.Interfaces
 {
     public interface IRoleDAL : IDAL, IDisposable
     {
-        Task<bool> CreateRoleAsync(CreateRoleDTO user);
+        Task<bool> CreateRoleAsync(RoleDTO user);
         Task<int> CheckRoleExists(string email);
     }
 }

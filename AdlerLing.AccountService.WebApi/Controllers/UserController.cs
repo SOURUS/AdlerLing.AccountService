@@ -6,6 +6,8 @@ using AdlerLing.AccountService.WebApi.Infra;
 using AdlerLing.AccountService.WebApi.Model.Request;
 using AdlerLing.AccountService.Core.DTO;
 using Microsoft.Extensions.Localization;
+using AutoMapper;
+using System;
 
 namespace AdlerLing.AccountService.WebApi.Controllers
 {
@@ -16,7 +18,7 @@ namespace AdlerLing.AccountService.WebApi.Controllers
         private readonly IUserService _userService;
 
         public UserController(IUserService userService, 
-            IStringLocalizer<SharedErrorResource> localizer) : base(localizer)
+            IStringLocalizer<SharedErrorResource> localizer, IMapper mapper) : base(localizer, mapper)
         {
             _userService = userService;
         }
@@ -25,7 +27,7 @@ namespace AdlerLing.AccountService.WebApi.Controllers
         [Route("CreateUser")]
         public async Task<ApiResponse> CreateUser([FromBody]UserModel user)
         {
-            var res = await _userService.CreateUser(new CreateUserDTO { Email = user.Email, Password = user.Password });
+            var res = await _userService.CreateUser(_mapper.Map<UserDTO>(user));
 
             if (res.Status == ResultStatusEnum.Failure)
             {
@@ -33,6 +35,20 @@ namespace AdlerLing.AccountService.WebApi.Controllers
             }
 
             return CreateSuccessResponse(res);
+        }
+
+        [HttpGet]
+        [Route("GetUser")]
+        public async Task<ApiResponse> GetUser(Guid userId)
+        {
+            var res = await _userService.GetUser(userId);
+
+            if (res.Status == ResultStatusEnum.Failure)
+            {
+                return CreateFailedResponse(res);
+            }
+
+            return CreateSuccessResponse(_mapper.Map<UserModel>(res.Data));
         }
     }
 }

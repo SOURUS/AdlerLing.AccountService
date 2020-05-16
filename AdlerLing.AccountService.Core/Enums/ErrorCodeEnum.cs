@@ -3,6 +3,7 @@
     public enum ErrorCodeEnum
     {
         UserWithEmailExists,
-        RoleNameAlreadyExists
+        RoleNameAlreadyExists,
+        UserWithIdDoesntExist
     }
 }

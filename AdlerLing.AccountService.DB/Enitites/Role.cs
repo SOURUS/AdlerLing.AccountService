@@ -4,8 +4,8 @@ namespace AdlerLing.AccountService.DB.Enitites
 {
     public class Role
     {
-        public int RoleId { get; set; }
-        public string Name { get; set; }
-        public DateTime CreationDate { get; set; }
+        public int role_id { get; set; }
+        public string name { get; set; }
+        public DateTime creation_date { get; set; }
     }
 }

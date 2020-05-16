@@ -5,11 +5,12 @@ namespace AdlerLing.AccountService.DB.Enitites
 {
     public class User
     {
-        public Guid UserId { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public DateTime CreationDate { get; set; }
-        public bool IsActivated { get; set; }
-        public List<Role> Roles { get; set; }
+        public Guid user_id { get; set; }
+        public string email { get; set; }
+        public string password { get; set; }
+        public DateTime creation_date { get; set; }
+        public bool? is_activated { get; set; }
+        public UserInfo user_info { get; set; }
+        public IEnumerable<Role> roles { get; set; }
     }
 }

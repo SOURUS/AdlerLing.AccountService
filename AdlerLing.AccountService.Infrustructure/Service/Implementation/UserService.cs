@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AdlerLing.AccountService.Core.Transfering;
 using AdlerLing.AccountService.Core.Enums;
 using System;
+using AdlerLing.AccountService.Infrustructure.Helpers;
 
 namespace AdlerLing.AccountService.Infrustructure.Service.Implementation
 {
@@ -16,25 +17,49 @@ namespace AdlerLing.AccountService.Infrustructure.Service.Implementation
             _userDAL = userDAL;
         }
 
-        public async Task<Result> CreateUser(CreateUserDTO user)
+        public async Task<Result<Guid>> CreateUser(UserDTO user)
         {
             try
             {
                 if (await _userDAL.CheckUserExists(user.Email) != 0)
                 {
-                    return Result.CreateFailure(ErrorCodeEnum.UserWithEmailExists);
+                    return Result.CreateFailure<Guid>(ErrorCodeEnum.UserWithEmailExists);
                 }
 
-                await _userDAL.CreateUserAsync(user);
+                var userId = await _userDAL.CreateUserAsync(user);
                 
                 await _userDAL.CommitAsync();
 
-                return Result.CreateSuccess();
+                return Result.CreateSuccess(userId);
             }
 
             catch (Exception ex)
             {
-                return Result.CreateFailure(ex);
+                return Result.CreateFailure<Guid>(ex);
+            }
+        }
+
+        public async Task<Result<UserDTO>> GetUser(Guid userId)
+        {
+            try
+            {
+                if (await _userDAL.CheckUserById(userId) == 0)
+                {
+                    return Result.CreateFailure<UserDTO>(ErrorCodeEnum.UserWithIdDoesntExist);
+                }
+
+                var user = await _userDAL.GetUser(userId);
+
+                await _userDAL.CommitAsync();
+
+                var userDTO = Mapping.Mapper.Map<UserDTO>(user);
+
+                return Result.CreateSuccess(userDTO);
+            }
+
+            catch (Exception ex)
+            {
+                return Result.CreateFailure<UserDTO>(ex);
             }
         }
     }

@@ -11,10 +11,10 @@ namespace AdlerLing.AccountService.Infrustructure.DAL.Implementations
     {
         public RoleDAL(string connectionString) : base(connectionString){ }
 
-        public async Task<bool> CreateRoleAsync(CreateRoleDTO role)
+        public async Task<bool> CreateRoleAsync(RoleDTO role)
         {
-            var sql = "INSERT INTO dbo.roles (name) VALUES (@email)";
-            var res = await _uow.Connection.ExecuteAsync(sql, new { email = role.Name },
+            var sql = "INSERT INTO dbo.roles (name) VALUES (@name)";
+            var res = await _uow.Connection.ExecuteAsync(sql, new { name = role.Name },
                 commandType: CommandType.Text, transaction: _uow.Transaction);
 
             bool response = res == 1;

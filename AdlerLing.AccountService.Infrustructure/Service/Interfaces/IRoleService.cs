@@ -6,6 +6,6 @@ namespace AdlerLing.AccountService.Infrustructure.Service.Interfaces
 {
     public interface IRoleService
     {
-        Task<Result> CreateRole(CreateRoleDTO role);
+        Task<Result> CreateRole(RoleDTO role);
     }
 }

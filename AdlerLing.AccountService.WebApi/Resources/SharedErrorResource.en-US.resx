@@ -132,4 +132,7 @@
   <data name="UserWithEmailExists" xml:space="preserve">
     <value>User with this email already exists.</value>
   </data>
+  <data name="UserWithIdDoesntExist" xml:space="preserve">
+    <value>User with this ID doesn't exist.</value>
+  </data>
 </root>
